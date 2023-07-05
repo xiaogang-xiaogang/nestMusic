@@ -22,9 +22,7 @@ export default defineConfig({
         // 允许跨域
         changeOrigin: true,
         ws: true,
-        pathRewrite: {
-            '^/api': ''
-        }
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }
