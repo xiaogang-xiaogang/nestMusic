@@ -38,7 +38,7 @@ import {timeFormater} from "@/composale/timeTools"
 let showVolume = ref(false)
 let audioRef = ref<HTMLAudioElement>()
 let progressRef = ref<HTMLInputElement>()
-let duration = ref('')
+let duration = ref('00:00')
 let currentTime = ref(0)
 let isPuase = ref(true)
 

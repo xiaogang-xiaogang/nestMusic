@@ -2,6 +2,7 @@
     <div class="container">
         <MusicHeader></MusicHeader>
         <MusicAside></MusicAside>
+        <RouterView class="content"></RouterView>
         <MusicFooter></MusicFooter>
     </div>
 </template>
@@ -13,5 +14,7 @@ import MusicAside from '@/components/aside.vue'
 </script>
 
 <style lang="scss" scoped>
-
+.content{
+    margin-left: 12%;
+}
 </style>

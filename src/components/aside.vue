@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-        <div class="find-music">
+        <div class="find-music" @click="goFindmusic">
             <img src="../assets/img/aside/音乐.png" alt="">
             <div>发现音乐</div>
         </div>
@@ -39,6 +39,15 @@
 </template>
 
 <script lang="ts" setup>
+import {  useRouter } from 'vue-router';
+
+
+const router= useRouter()
+function goFindmusic(){
+    router.push({
+        name:'findMusic'
+    })
+}
 
 </script>
 
@@ -51,8 +60,98 @@
         position: fixed;
         left:0;
         top: 60px;
-        width: 15%;
-        height: 90%;
+        width: 12%;
+        height: 88%;
         border-right: 1px solid rgb(230, 230, 230);
+        .header{
+            width: 100%;
+            .find-music{
+                display: flex;
+                justify-self: left;
+                align-items: center;
+                width: 100%;
+                height: 50px;
+                border-bottom: 1px solid #BAF2F2F2 ;
+                cursor: pointer;
+                img{
+                    margin: 0 5px 0 10px;
+                }
+            }
+            .find-mv{
+                display: flex;
+                justify-self: left;
+                align-items: center;
+                width: 100%;
+                height: 50px;
+                border-bottom: 1px solid #BAF2F2F2 ;
+                cursor: pointer;
+                img{
+                    margin: 0 10px;
+                }
+            }
+            .find-music:hover{
+                background-color: rgba(24, 132, 252, 1);
+            }
+            .find-mv:hover{
+                background-color: rgba(24, 132, 252, 1);
+            }
+        }
+        .my-music{
+            .my-music-header{
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+            }
+            .content{
+                .love-music{
+                    width: 100%;
+                    display: flex;
+                    justify-self: left;
+                    align-items: center;
+                    width: 100%;
+                    height: 50px;
+                    border-bottom: 1px solid #BAF2F2F2 ;
+                    cursor: pointer;
+                    img{
+                        margin: 0 5px 0 10px;
+                    }
+                }
+                .love-music:hover{
+                    background-color: rgba(24, 132, 252, 1);
+                }
+                .current-play{
+                    width: 100%;
+                    display: flex;
+                    justify-self: left;
+                    align-items: center;
+                    width: 100%;
+                    height: 50px;
+                    border-bottom: 1px solid #BAF2F2F2 ;
+                    cursor: pointer;
+                    img{
+                        margin: 0 5px 0 10px;
+                    }
+                }
+                .current-play:hover{
+                    background-color: rgba(24, 132, 252, 1);
+                }
+            }
+        }
+        .my-music-list{
+            .header{
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                position: relative;
+                img{
+                    position: absolute;
+                    top: 2px;
+                    right: 5px;
+                    width: 26px;
+                    height: 26px;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 </style>
