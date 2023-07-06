@@ -15,6 +15,6 @@ import MusicAside from '@/components/aside.vue'
 
 <style lang="scss" scoped>
 .content{
-    margin-left: 12%;
+    margin-left: 250px;
 }
 </style>

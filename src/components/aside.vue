@@ -60,7 +60,7 @@ function goFindmusic(){
         position: fixed;
         left:0;
         top: 60px;
-        width: 12%;
+        width: 250px;
         height: 88%;
         border-right: 1px solid rgb(230, 230, 230);
         .header{
