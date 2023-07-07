@@ -29,24 +29,24 @@ function startCoursel(){
   for(let i=0;i<props.data.length;i++){
     // 注意缩放会导致left的位置发生变化
     if(loc.value==i){
-      rv[i].style.left = 600+"px"
+      rv[i].style.left = 30+"%"
       rv[i].style.transform = "scale(1,1)"
       rv[i].style.zIndex = "2"
     }else if(i==((loc.value-1+props.data.length)%props.data.length)){
       rv[i].style.transform = "scale(0.9,0.9)"
-      rv[i].style.left=-40+"px"
+      rv[i].style.left=-4+"%"
       rv[i].style.zIndex = '1'
     }else if(i==(loc.value+1)%props.data.length){
       rv[i].style.transform = "scale(0.9,0.9)"
-      rv[i].style.left=1240+"px"
+      rv[i].style.left=60+"%"
       rv[i].style.zIndex = '1'
     }else if(i==((loc.value-2+props.data.length)%props.data.length)){
       rv[i].style.transform = "scale(0.9,0.9)"
-      rv[i].style.left=-720+"px"
+      rv[i].style.left=-30+"%"
       rv[i].style.zIndex = '0'
     }
     else{
-      rv[i].style.left=2000+"px"
+      rv[i].style.left=100+"%"
       rv[i].style.zIndex = '0'
       rv[i].style.transform = "scale(0.9,0.9)"
     }
@@ -76,7 +76,7 @@ function changeLoc(index:number){
 <style lang="scss" scoped>
   .container{
     display: flex;
-    width: 2000px;
+    width: 97%;
     height: 350px;
     margin: 30px auto;
     overflow: hidden;
@@ -84,12 +84,12 @@ function changeLoc(index:number){
     padding: 0px;
     background-color: white;
     .coursel-item{
-      width: 800px;
+      width: 40%;
       height: 300px;
       position: absolute;
       cursor: pointer;
       img{
-        width: 800px;
+        width: 100%;
         height: 300px;
       }
     }

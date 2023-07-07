@@ -1,4 +1,7 @@
 <template>
+    <div class="footer-container">
+        
+    </div>
   <div class="container">
     <img class="music-img" src="https://picsum.photos/id/684/60/60" alt="">
     <div class="musicInf">
@@ -14,6 +17,10 @@ import MusicPlay from './musicplay.vue'
 </script>
 
 <style lang="scss" scoped>
+.footer-container{
+    height: 60px;
+    width: 100%;
+}
     .container{
         position: fixed;
         bottom: 0;

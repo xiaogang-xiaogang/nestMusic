@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <div class="play-list" v-for="(item, index) in playList" :key="index">
-        <img :src="item.url.toString()" alt="">
-        <div class="title">{{ item.title }}</div>
+        <img :src="item.url.toString()" alt="" @click="toPlayList(index)">
+        <div class="title" @click="toPlayList(index)">{{ item.title }}</div>
     </div>
  </div>
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
+
 
 const props = defineProps({
     data:{
@@ -20,20 +22,27 @@ let playList:PlayList[] = []
 function getPlayList(){
     for(let i=0;i<props.data.length;i++){
         let resources = props.data[i].resources
-        console.log(resources)
         for(let j=0;j<resources.length;j++){
             let musicList:PlayList = {"listId":'',"url":'',"title":''}
             musicList.listId= resources[j].resourceId
             musicList.url = resources[j].uiElement.image.imageUrl
             musicList.title = resources[j].uiElement.mainTitle.title
             playList.push(musicList)
-            if(playList.length==7){
-                return
-            }
         }
     }
 }
+const router = useRouter()
 getPlayList()
+function toPlayList(index:number){
+    let id = playList[index].listId
+    router.push({
+        name:'playList',
+        query:{
+            id:id.toString(),
+            page:"1"
+        }
+    })
+}
 </script>
 
 <style lang="scss" scoped>

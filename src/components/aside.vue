@@ -45,7 +45,7 @@ import {  useRouter } from 'vue-router';
 const router= useRouter()
 function goFindmusic(){
     router.push({
-        name:'findMusic'
+        path:'/findMusic'
     })
 }
 
@@ -57,7 +57,7 @@ function goFindmusic(){
         height: 30px;
     }   
     .container{
-        position: fixed;
+        position: absolute;
         left:0;
         top: 60px;
         width: 250px;

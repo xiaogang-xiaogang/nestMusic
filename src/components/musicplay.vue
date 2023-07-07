@@ -92,6 +92,7 @@ defineExpose(
 .audio-controls{
     width: 100%;
     height: 100%;
+    background-color: #fff;
     .progress{
         width: 90%;
         display: flex;
