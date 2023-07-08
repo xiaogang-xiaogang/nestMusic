@@ -1,10 +1,10 @@
-interface PlayList{
+export interface PlayList{
     listId:String,
     url:String,
     title:String
 }
 
-interface PlayListDetail{
+export interface PlayListDetail{
     id:String,
     name:String,
     imgUrl:String,
@@ -18,12 +18,13 @@ interface PlayListDetail{
 
 
 // al表示专辑
-interface SongDetail{
+export interface SongDetail{
     isLove:Boolean,
     title:String,
     songer:String,
     alName:String,
     alId:String,
-    timeLong:Number
+    timeLong:Number,
+    id:String
 }
 

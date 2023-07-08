@@ -34,8 +34,7 @@
             <div>精选评论</div>
         </div>
         <div class="bottom-content">
-            <div v-if="listLoading">加载中</div>
-            <SongList v-else :songs="songsList"></SongList>
+            <SongList :count="Number(details.count)"></SongList>
         </div>
     </div>
  </div>
@@ -43,13 +42,13 @@
 
 <script lang="ts" setup>
 import { getListDetail, getSongs } from '@/api/playList'
+import {PlayListDetail , SongDetail} from '@/composale/playList.d'
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import SongList from '@/components/songList.vue'
 
 let details:PlayListDetail = {} as PlayListDetail
 let pageLoading = ref(true)
-let listLoading = ref(true)
 const route = useRoute()
 async function getDetail() {
     if(route.query.id){
@@ -68,26 +67,6 @@ async function getDetail() {
     }
 }
 getDetail()
-let songsList:SongDetail[] = []
-async function getSongsList() {
-    if(route.query.id && route.query.page){
-        let begin = (parseInt(route.query.page.toString())-1)*10
-        let songs = await getSongs(route.query.id.toString(),begin.toString())
-        let n = songs.length
-        for(let i=0;i<n;i++){
-            let song:SongDetail = {} as SongDetail
-            song.title = songs[i].name
-            song.songer = songs[i].ar[0].name
-            song.alId = songs[i].al.id
-            song.alName = songs[i].al.name
-            song.isLove = false
-            song.timeLong = Math.floor(parseInt(songs[i].dt)/1000)
-            songsList.push(song)
-        }
-        listLoading.value = false
-    }
-}
-getSongsList()
 </script>
 
 <style lang="scss" scoped>

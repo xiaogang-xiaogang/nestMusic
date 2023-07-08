@@ -1,6 +1,6 @@
 <template>
     <div class="audio-controls">
-        <audio ref="audioRef" src="http://m8.music.126.net/20230703181121/a12a1a3762c1a8241b235cc38adde8d3/ymusic/0fd6/4f65/43ed/a8772889f38dfcb91c04da915b301617.mp3" @timeupdate="timeUpdate"></audio>
+        <audio ref="audioRef" :src="songUrl" @timeupdate="timeUpdate"></audio>
         <div class="progress"> 
             <input v-if="audioRef" type="range" min="0" :max="Math.floor(audioRef.duration)" :value="currentTime" @input="changeTime"  ref="progressRef">
             <input type="range" v-else min="0" max="100" value="0">
@@ -32,8 +32,16 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 import {timeFormater} from "@/composale/timeTools"
+import { useMusicPlayStore } from '@/store/playmusic';
+
+const props = defineProps({
+    songUrl:{
+        type:String,
+        default:''
+    }
+})
 
 let showVolume = ref(false)
 let audioRef = ref<HTMLAudioElement>()
@@ -68,11 +76,14 @@ function changeTime(e:Event){
         audio.currentTime=e.target.value
     }
 }
-function beginPlay(e:Event){
+
+const musicPlay = ()=>{
     let audio = audioRef.value
-    audio.play()
-    isPuase.value = false
-}
+    if(audio){
+        audio.play()
+        isPuase.value = false
+    }   
+    }
 
 onMounted(()=>{
     let audio = audioRef.value
@@ -83,8 +94,9 @@ onMounted(()=>{
         }
     }
 })
-defineExpose(
-    beginPlay,
+defineExpose({
+    musicPlay,
+}
 )
 </script>
 

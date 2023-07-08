@@ -11,12 +11,12 @@ export async function getListDetail(id:string){
     return res.playlist
 }
 
-export async function getSongs(id:string,begin:string){
+export async function getSongs(id:string,begin:string,limit?:string){
     const res = await <Promise<any>>api.get(
         '/api/playlist/track/all',{
             params:{
                 id:id,
-                limit:'10',
+                limit:limit?limit:'10',
                 offset:begin
             }
         }
