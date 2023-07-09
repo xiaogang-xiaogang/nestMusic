@@ -23,7 +23,6 @@
                 >
                     <img 
                     src="../assets/img/musicplay/yinliang.png" alt="">
-                    <div class="block">&nbsp;&nbsp;&nbsp;&nbsp; </div>
                     <input v-if="showVolume" type="range" min="0" max="100" value="50" >
                 </div>
             </div>
@@ -34,7 +33,7 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, ref, watch } from 'vue';
 import {timeFormater} from "@/composale/timeTools"
-import { useMusicPlayStore } from '@/store/playmusic';
+
 
 const props = defineProps({
     songUrl:{
@@ -42,7 +41,6 @@ const props = defineProps({
         default:''
     }
 })
-
 let showVolume = ref(false)
 let audioRef = ref<HTMLAudioElement>()
 let progressRef = ref<HTMLInputElement>()
@@ -80,8 +78,12 @@ function changeTime(e:Event){
 const musicPlay = ()=>{
     let audio = audioRef.value
     if(audio){
-        audio.play()
-        isPuase.value = false
+        nextTick(
+            ()=>{
+                audio.play()
+                isPuase.value = false
+            }
+        )
     }   
     }
 
@@ -96,6 +98,7 @@ onMounted(()=>{
 })
 defineExpose({
     musicPlay,
+    isPuase,
 }
 )
 </script>
@@ -145,20 +148,15 @@ defineExpose({
         .others{
             z-index: 100;
             .volume{
-                margin-left: 250px;
+                margin-left: 100px;
                 width: 30px;
                 height: 30px;
                 position: relative;
                 display: flex;
                 cursor: pointer;
-                transform: rotate(-90deg);
                 img{
                     width: 100%;
                     height: 100%;
-                    transform: rotate(90deg);
-                }
-                .block{
-                    height: 30px;
                 }
                 input{
                     

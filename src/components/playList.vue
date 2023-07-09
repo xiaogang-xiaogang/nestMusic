@@ -77,7 +77,7 @@ getDetail()
     width: calc(100% - 250px) ;
     .header{
         width: 90%;
-        height: 300px;
+        height: 30%;
         margin: 10px auto;
         display: flex;
         .header-left{

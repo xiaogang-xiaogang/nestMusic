@@ -1,15 +1,17 @@
 <template>
-    <div class="footer-container">
-        
+    <Teleport to="body">
+        <Transition name="detail" >
+            <SongDetail :url="song.url" :isPuase="musicPlayRef.isPuase" v-if="isIgnoreSongDetail"  @close="unshowDetail"></SongDetail>
+        </Transition>
+    </Teleport>
+    <div class="container">
+        <img class="music-img" @click="showDetail" :src="song.imgUrl?song.imgUrl:defaultUrl" alt="">
+        <div class="musicInf">
+            <span class="music-name">{{ song.name?song.name:'歌曲名' }}</span>
+            <span class="musicor">{{ song.songer?song.songer:'歌手' }}</span>
+        </div>
+        <MusicPlay :songUrl="song.url" ref="musicPlayRef"></MusicPlay>
     </div>
-  <div class="container">
-    <img class="music-img" :src="song.imgUrl?song.imgUrl:defaultUrl" alt="">
-    <div class="musicInf">
-        <span class="music-name">{{ song.name?song.name:'歌曲名' }}</span>
-        <span class="musicor">{{ song.songer?song.songer:'歌手' }}</span>
-    </div>
-    <MusicPlay :songUrl="song.url" ref="musicPlayRef"></MusicPlay>
- </div>
 </template>
 
 <script lang="ts" setup>
@@ -18,9 +20,11 @@ import MusicPlay from './musicplay.vue'
 import { useMusicPlayStore } from '@/store/playmusic';
 import { Song } from '@/composale/song.d';
 import {getSongDetail, getSongUrl} from '@/api/song'
+import SongDetail from '@/pages/songDetail/index.vue'
 
 let song = ref<Song>({} as Song)
 let musicPlayRef = ref<any>()
+let isIgnoreSongDetail = ref(false)
 async function getMusicUrl(id:string) {
     let res = await getSongUrl(id)
     song.value.url = res.url
@@ -44,13 +48,30 @@ watch(
     }
 )
 
+function showDetail(){
+    isIgnoreSongDetail.value=true
+}
+
+function unshowDetail(){
+    isIgnoreSongDetail.value=false
+}
 </script>
 
 <style lang="scss" scoped>
-.footer-container{
-    height: 60px;
-    width: 100%;
-}
+    @keyframes bottom-change {
+        from{
+            top: calc(100% - 60px);
+        }
+        to{
+            top:60px;
+        }
+    }
+    .detail-enter-active {
+        animation: bottom-change .5s;
+    }
+    .detail-leave-active {
+        animation: bottom-change .5s reverse;
+    }
     .container{
         position: fixed;
         bottom: 0;
@@ -63,6 +84,7 @@ watch(
             margin-right: 5px;
             width: 60px;
             height: 60px;
+            cursor: pointer;
         }
         .musicInf{
             width: 100px;
