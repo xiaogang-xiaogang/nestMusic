@@ -1,7 +1,7 @@
 <template>
     <Teleport to="body">
         <Transition name="detail" >
-            <SongDetail :url="song.url" :isPuase="musicPlayRef.isPuase" v-if="isIgnoreSongDetail"  @close="unshowDetail"></SongDetail>
+            <SongDetail :currentTime="musicPlayRef.currentTime" :name="song.name" :alName="song.alName" :songer="song.songer" :id="song.id" :url="song.imgUrl" :isPuase="musicPlayRef.isPuase" v-if="isIgnoreSongDetail"  @close="unshowDetail"></SongDetail>
         </Transition>
     </Teleport>
     <div class="container">
@@ -36,6 +36,9 @@ async function getMusicDetail(id:string) {
     song.value.name = res.name
     song.value.imgUrl = res.al.picUrl
     song.value.songer =  res.ar[0].name
+    song.value.alName = res.al.name
+    song.value.alId = res.al.id
+    song.value.songerId = res.ar[0].id
 }
 
 const store = useMusicPlayStore()

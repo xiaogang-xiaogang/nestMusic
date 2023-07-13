@@ -4,4 +4,7 @@ export interface Song{
     url:String,
     imgUrl:String,
     songer:String
+    songerId:String,
+    alId:String,
+    alName:String
 }

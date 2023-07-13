@@ -22,3 +22,14 @@ export async function getSongDetail(id:string) {
     )
     return res.songs[0]
 }
+
+export async function getSongLyric(id:string) {
+    const res = await <Promise<any>>api.get(
+        '/api/lyric',{
+            params:{
+                id:id
+            }
+        }
+    )
+    return res.lrc
+}

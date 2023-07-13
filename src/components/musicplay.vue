@@ -1,6 +1,6 @@
 <template>
     <div class="audio-controls">
-        <audio ref="audioRef" :src="songUrl" @timeupdate="timeUpdate"></audio>
+        <audio ref="audioRef" :src="songUrl" @ended="isPuase=true" @timeupdate="timeUpdate"></audio>
         <div class="progress"> 
             <input v-if="audioRef" type="range" min="0" :max="Math.floor(audioRef.duration)" :value="currentTime" @input="changeTime"  ref="progressRef">
             <input type="range" v-else min="0" max="100" value="0">
@@ -47,7 +47,6 @@ let progressRef = ref<HTMLInputElement>()
 let duration = ref('00:00')
 let currentTime = ref(0)
 let isPuase = ref(true)
-
 function play(e:Event){
     e.stopPropagation()
     let audio = audioRef.value
@@ -99,6 +98,7 @@ onMounted(()=>{
 defineExpose({
     musicPlay,
     isPuase,
+    currentTime,
 }
 )
 </script>
