@@ -1,6 +1,6 @@
 <template>
   <div v-if="pageLoading" class="page-loading">
-    载入中
+   <Loading></Loading>
  </div>
  <div v-else class="container">
     <div class="header">
@@ -46,7 +46,7 @@ import {PlayListDetail , SongDetail} from '@/composale/playList.d'
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import SongList from '@/components/songList.vue'
-
+import Loading from '@/components/loading.vue'
 let details:PlayListDetail = {} as PlayListDetail
 let pageLoading = ref(true)
 const route = useRoute()

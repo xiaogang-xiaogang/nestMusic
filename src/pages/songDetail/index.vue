@@ -15,6 +15,7 @@
             <SongLyric :currentTime="currentTime" :lyricTime="lyricTime" :name="name" :lyric="lyricArr" :songer="songer" :alName="alName"></SongLyric>
         </div>
     </div>
+    <Comment></Comment>
  </div>
 </template>
 
@@ -22,6 +23,7 @@
 import { onMounted, ref, watch } from 'vue';
 import {getSongLyric} from '@/api/song'
 import SongLyric from '@/components/songLyric.vue';
+import Comment from '@/components/comment.vue';
 const emits = defineEmits(['close'])
 let playBarContainerRef = ref<HTMLDivElement>()
 let imgRef = ref<HTMLDivElement>()
@@ -108,7 +110,7 @@ onMounted(
 
 <style lang="scss" scoped>
 .container1{
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 60px;
     width: 100%;

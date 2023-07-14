@@ -23,7 +23,10 @@
     height: 60px;
     width: 100%;
     padding: 0 10px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
     .left-content{
       height: 100%;
       display: flex;

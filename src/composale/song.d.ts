@@ -6,5 +6,6 @@ export interface Song{
     songer:String
     songerId:String,
     alId:String,
-    alName:String
+    alName:String,
+    mvId:String
 }

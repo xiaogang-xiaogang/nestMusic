@@ -57,7 +57,7 @@ function goFindmusic(){
         height: 30px;
     }   
     .container{
-        position: absolute;
+        position: fixed;
         left:0;
         top: 60px;
         width: 250px;

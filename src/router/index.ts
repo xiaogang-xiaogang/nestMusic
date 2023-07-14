@@ -26,7 +26,12 @@ const routes:Array<RouteRecordRaw> = [
             {
                 path:'/playList',
                 name:'playList',
-                component:()=> import('@/components/playList.vue')
+                component:()=> import('@/pages/playList/playList.vue')
+            },
+            {
+                path:'/mvPlay',
+                name:'mvPlay',
+                component:()=> import('@/pages/mvPlay/mvPlay.vue')
             }
         ]
     }
