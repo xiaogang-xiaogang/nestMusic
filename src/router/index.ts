@@ -20,6 +20,16 @@ const routes:Array<RouteRecordRaw> = [
                         path:'',
                         name:'recommend',
                         component:()=>import('@/pages/recommond/index.vue')
+                    },
+                    {
+                        path:'/allPlayList',
+                        name:'allPlayList',
+                        component:()=>import('@/pages/allPlayList/index.vue')
+                    },
+                    {
+                        path:'/rank',
+                        name:'rank',
+                        component:()=>import('@/pages/rank/index.vue')
                     }
                 ]
             },

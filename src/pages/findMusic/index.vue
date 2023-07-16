@@ -1,18 +1,52 @@
 <template>
   <div class="container">
     <div class="header">
-        <div class="every active">推荐</div>
-        <div class="every">歌单</div>
-        <div class="every">排行榜</div>
-        <div class="every">歌手</div>
-        <div class="every">最新音乐</div>
+        <div class="every" @click="goRecommend" :class="{'active':active==0}">推荐</div>
+        <div class="every" @click="goAllPlayList" :class="{'active':active==1}">歌单</div>
+        <div class="every" @click="goRank" :class="{'active':active==2}">排行榜</div>
+        <div class="every" :class="{'active':active==3}">歌手</div>
+        <div class="every" :class="{'active':active==4}">最新音乐</div>
     </div>
     <router-view></router-view>
  </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import {  useRoute, useRouter } from 'vue-router';
+let active = ref(0)
+const route = useRoute()
+console.log(route.name)
+if(route.name=='allPlayList'){
+    active.value=1
+}else if(route.name == 'rank'){
+    active.value=2
+}
+const router= useRouter()
+function goAllPlayList(){
+    active.value = 1
+    router.push({
+        name:'allPlayList',
+        query:{
+            page:'1',
+            cat:'全部'
+        }
+    })
+}
 
+function goRecommend(){
+    active.value = 0
+    router.push({
+        name:'recommend'
+    })
+}
+
+function goRank(){
+    active.value = 2
+    router.push({
+        name:'rank'
+    })
+}
 </script>
 
 <style lang="scss" scoped>

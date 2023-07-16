@@ -62,7 +62,6 @@ async function getDetail() {
         details.creator = playList.creator.nickname
         details.creatorUrl = playList.creator.avatarUrl
         details.createTime = new Date(parseInt(playList.createTime))
-        console.log(details.createTime)
         pageLoading.value = false
     }
 }

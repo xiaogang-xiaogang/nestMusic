@@ -28,3 +28,8 @@ export interface SongDetail{
     id:String
 }
 
+export interface Catlist{
+    names:Array<String>,
+    category:String
+}
+

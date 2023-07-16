@@ -2,7 +2,7 @@
   <div class="container">
     <button @click="clickPage(nowPage-1)">上一页</button>
     <div v-if="pages<10">
-        <button v-for="index of pages" :key="index" @click="clickPage(index)">{{ index }}</button>
+        <button :class="{'active':nowPage==index}" v-for="index of pages" :key="index" @click="clickPage(index)">{{ index }}</button>
     </div>
     <div v-else>
         <div v-if="nowPage<5">
@@ -30,6 +30,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps({
@@ -41,16 +42,16 @@ const props = defineProps({
 
 const emits = defineEmits(['changePage'])
 const route = useRoute()
-let nowPage = 1
+let nowPage = ref(1)
 function getNowPage(){
     if(route.query.page){
-        nowPage = parseInt(route.query.page.toString())
+        nowPage.value = parseInt(route.query.page.toString())
     }
 }
 getNowPage()
 
 function clickPage(index:number){
-    nowPage = index;
+    nowPage.value = index;
     emits('changePage',index)
 }
 </script>
