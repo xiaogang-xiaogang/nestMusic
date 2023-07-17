@@ -1,5 +1,5 @@
 import api from '@/utils/ajax'
-
+const cancelTokenList = {}
 export async function getSongUrl(id:string) {
     const res = await <Promise<any>>api.get(
         '/api/song/url/v1',{
@@ -32,4 +32,16 @@ export async function getSongLyric(id:string) {
         }
     )
     return res.lrc
+}
+
+export async function getNewSong(cate?:string) {
+    const res = await <Promise<any>>api.get(
+        '/api/top/song',{
+            params:{
+                type:cate?cate:'0'
+            },
+
+        }
+    )
+    return res.data
 }

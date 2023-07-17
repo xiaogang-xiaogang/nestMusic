@@ -5,7 +5,7 @@
         <div class="every" @click="goAllPlayList" :class="{'active':active==1}">歌单</div>
         <div class="every" @click="goRank" :class="{'active':active==2}">排行榜</div>
         <div class="every" :class="{'active':active==3}">歌手</div>
-        <div class="every" :class="{'active':active==4}">最新音乐</div>
+        <div class="every" @click="goNewMusic" :class="{'active':active==4}">最新音乐</div>
     </div>
     <router-view></router-view>
  </div>
@@ -21,6 +21,8 @@ if(route.name=='allPlayList'){
     active.value=1
 }else if(route.name == 'rank'){
     active.value=2
+}else if(route.name == 'newMusic'){
+    active.value=4
 }
 const router= useRouter()
 function goAllPlayList(){
@@ -45,6 +47,16 @@ function goRank(){
     active.value = 2
     router.push({
         name:'rank'
+    })
+}
+
+function goNewMusic(){
+    active.value = 4
+    router.push({
+        name:'newMusic',
+        query:{
+            flag:'0'
+        }
     })
 }
 </script>

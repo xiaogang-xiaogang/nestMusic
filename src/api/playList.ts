@@ -43,3 +43,10 @@ export async function getAllPlayList(order:string,cat:string) {
     )
     return res
 }
+
+export async function getRank() {
+    const res = await <Promise<any>>api.get(
+        '/api/toplist'
+    )
+    return res.list as Array
+}

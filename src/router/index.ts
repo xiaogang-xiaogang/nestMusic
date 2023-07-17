@@ -30,6 +30,11 @@ const routes:Array<RouteRecordRaw> = [
                         path:'/rank',
                         name:'rank',
                         component:()=>import('@/pages/rank/index.vue')
+                    },
+                    {
+                        path:'/newMusic',
+                        name:'newMusic',
+                        component:()=>import('@/pages/newSong/index.vue')
                     }
                 ]
             },

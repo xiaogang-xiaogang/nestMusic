@@ -70,7 +70,7 @@ getDetail()
 
 <style lang="scss" scoped>
 .page-loading{
-    margin: auto;
+    margin: 70px 80px;
 }
 .container{
     width: calc(100% - 250px) ;

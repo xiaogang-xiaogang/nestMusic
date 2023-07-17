@@ -7,5 +7,6 @@ export interface Song{
     songerId:String,
     alId:String,
     alName:String,
-    mvId:String
+    mvId:String,
+    duration:Number
 }

@@ -8,7 +8,7 @@
         <div class="time-long">时长</div>
       </div>
     <div v-if="listLoading">
-      加载中
+      <Loading></Loading>
     </div>
     <div v-else>
       <div class="song-content" @click="playMusic(index)" :class="{'active':index%2==0}" v-for="(item, index) in songsList" :key="index">
@@ -31,6 +31,7 @@ import { PropType, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getSongs } from '@/api/playList';
 import {useMusicPlayStore} from '@/store/playmusic'
+import Loading from './loading.vue';
 const props = defineProps({
   count:{
     type:Number,
