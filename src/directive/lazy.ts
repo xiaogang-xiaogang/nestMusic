@@ -1,6 +1,6 @@
 import { createApp, Directive } from 'vue';
 import { useIntersectionObserver } from '@vueuse/core'
-import defaultImg from '@/assets/images/card-empty.png'
+
 
 // 懒加载指令
 const lazy: Directive = {
@@ -19,7 +19,7 @@ const lazy: Directive = {
             }
             // 图片加载失败，显示默认图片
             el.onerror = () => {
-                el.src = defaultImg
+                el.src = ''
             }
         })
     },

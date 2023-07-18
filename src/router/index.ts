@@ -35,6 +35,11 @@ const routes:Array<RouteRecordRaw> = [
                         path:'/newMusic',
                         name:'newMusic',
                         component:()=>import('@/pages/newSong/index.vue')
+                    },
+                    {
+                        path:'/allArtist',
+                        name:'allArtist',
+                        component:()=>import('@/pages/allArtist/index.vue')
                     }
                 ]
             },
@@ -47,6 +52,11 @@ const routes:Array<RouteRecordRaw> = [
                 path:'/mvPlay',
                 name:'mvPlay',
                 component:()=> import('@/pages/mvPlay/mvPlay.vue')
+            },
+            {
+                path:'/alList',
+                name:'alList',
+                component:()=>import('@/pages/alList/index.vue')
             }
         ]
     }
