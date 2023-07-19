@@ -57,6 +57,11 @@ const routes:Array<RouteRecordRaw> = [
                 path:'/alList',
                 name:'alList',
                 component:()=>import('@/pages/alList/index.vue')
+            },
+            {
+                path:'/artistList',
+                name:'artistList',
+                component:()=>import('@/pages/artistList/index.vue')
             }
         ]
     }

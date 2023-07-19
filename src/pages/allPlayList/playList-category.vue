@@ -28,7 +28,7 @@ import { Catlist, PlayList } from '@/composale/playList';
 import { PropType, ref } from 'vue';
 import Loading from '@/components/loading.vue';
 import { useRoute, useRouter } from 'vue-router';
-import {getAllPlayList} from '@/api/playList'
+import {getAllPlayList, cancelGetAllPlayList} from '@/api/playList'
 import Pages from '@/components/pages.vue'
 const props = defineProps({
   list:{
@@ -63,6 +63,7 @@ function changeCat(cat:String){
         }
     })
     playListLoading.value = true
+    cancelGetAllPlayList()
     getData(1,cat.toString())
   }
 }
