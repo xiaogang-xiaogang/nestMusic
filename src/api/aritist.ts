@@ -56,3 +56,28 @@ export async function getArtistMv(id:string,offset:number) {
     )
     return res
 }
+
+export async function getHotFivity(id:string) {
+    const res = await <Promise<any>>api.get(
+        '/api/artist/songs',{
+            params:{
+                id:id,
+                limit:'50'
+            }
+        }
+    )
+    return res.songs
+}
+
+export async function getHotAlbum(id:string,offset:number) {
+    const res = await <Promise<any>>api.get(
+        '/api/artist/album',{
+            params:{
+                id:id,
+                limit:'20',
+                offset:offset
+            }
+        }
+    )
+    return res
+}
