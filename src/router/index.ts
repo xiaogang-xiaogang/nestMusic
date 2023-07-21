@@ -62,6 +62,11 @@ const routes:Array<RouteRecordRaw> = [
                 path:'/artistList',
                 name:'artistList',
                 component:()=>import('@/pages/artistList/index.vue')
+            },
+            {
+                path:'/search',
+                name:'search',
+                component:()=>import('@/pages/search-result/index.vue')
             }
         ]
     }

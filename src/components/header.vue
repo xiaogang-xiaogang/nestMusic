@@ -16,7 +16,7 @@
           type="text">
         </div>
         <div class="search-result" v-if="showResult">
-          <div>搜“{{ inputValue }}”相关结果>></div>
+          <div class="go-result" @click="goResult(inputValue.trim())">搜“{{ inputValue.trim() }}”相关结果>></div>
           <div class="song one" v-if="songs.length!=0">
             <div class="title">单曲</div>
             <div v-for="(item, index) in songs" :key="index" @click="playMusic(index)">{{ item.name }}</div>
@@ -178,6 +178,17 @@ function goArtistList(index:number){
         }
     })
 }
+
+function goResult(keyword:string){
+  router.push({
+    name:'search',
+    query:{
+      keyword,
+      type:'1',
+      page:'1'
+    }
+  })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -257,6 +268,9 @@ function goArtistList(index:number){
           border: 1px solid rgba(0, 0, 0, 0.498);
           background-color: white;
           width: 300px;
+          .go-result{
+            cursor: pointer;
+          }
           .one{
             margin: 10px ;
             div{

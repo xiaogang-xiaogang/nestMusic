@@ -26,8 +26,7 @@ export async function search(keyword:string,type:number) {
                 keywords:keyword,
                 type,
                 limit:'2'
-            },
-            cancelToken:cancelTokenSource.token
+            }
         }
     )
     return res.result
@@ -38,5 +37,28 @@ export async function cancelSearch(){
         if(cancelTokenSource[i]){
             cancelTokenSource[i].cancel("取消上一次请求")
         }
+    }
+}
+
+let cancelTokenAllSource:any
+export async function searchAll(keyword:string,type:number,offset:number) {
+    cancelTokenAllSource = api.cancelToken.source()
+    const res = await <Promise<any>>api.get(
+        '/api/search',{
+            params:{
+                keywords:keyword,
+                type,
+                limit:'50',
+                offset
+            },
+            cancelToken:cancelTokenAllSource.token
+        }
+    )
+    return res.result
+}
+
+export async function cancelSearchAll() {
+    if(cancelTokenAllSource){
+        cancelTokenAllSource.cancel('取消上次请求')
     }
 }
