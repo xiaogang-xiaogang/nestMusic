@@ -12,7 +12,7 @@ service.cancelToken = axios.CancelToken
 // 设置响应拦截器
 service.interceptors.response.use(
     response=>{
-        if(response.status === 200 && response.data.code === 200){
+        if(response.status === 200){
             return response.data
         }else {
             return rejectError(new Error(response.data.result || '接口错误'));
