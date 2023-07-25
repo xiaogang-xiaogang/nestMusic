@@ -4,7 +4,7 @@ export async function anonimousLogin() {
     let res = await <Promise<any>>api.get(
         '/api/register/anonimous'
     )
-    return res.userId
+    return res.cookie
 }
 
 export async function getKey() {
@@ -34,11 +34,12 @@ export async function getImg(key:string) {
 
 export async function checkStatus(key:string) {
     const res = await <Promise<any>>api.get(
-        '/api/login/qr/check?noCookie=true',
+        '/api/login/qr/check',
         {
             params:{
                 key:key,
                 timestamp:Date.now(),
+                noCookie:true
             }
         }
     )
@@ -48,10 +49,10 @@ export async function checkStatus(key:string) {
 
 export async function getLoginStatus(cookie = '') {
     const res = await <Promise<any>>api.post(
-      `/login/status?timestamp=${Date.now()}`,
+      `/api/login/status?timestamp=${Date.now()}`,
       {
         cookie,
       },
     )
-    return res.data
+    return res
   }

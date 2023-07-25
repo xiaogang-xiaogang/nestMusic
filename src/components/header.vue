@@ -35,10 +35,11 @@
           </div>
         </div>
       </div>
-      <span class="login">
+      <span v-if="!isLogin" class="login">
         <!-- <div v-if="userId && cookieMap.get('MUSIC_A')">游客1</div> -->
 
           <div @click="showModal">登陆</div>
+          <div @click="login">游客登录</div>
           <Teleport to="body">
             <transition v-if="showLogin">
               <div class="login-modal">
@@ -48,6 +49,10 @@
               </div>
             </transition>
           </Teleport>
+      </span>
+      <span class="login" v-else>
+        <div>游客</div>
+        <div>退出</div>
       </span>
     </div>
  </div>
@@ -64,7 +69,7 @@ import _ from 'lodash-es'
 import { useMusicPlayStore } from '@/store/playmusic';
 import { useRouter } from 'vue-router';
 import { getCookieMap } from '@/utils/cookie'
-import { getKey, getImg, checkStatus, getLoginStatus } from '@/api/login';
+import { getKey, getImg, checkStatus, getLoginStatus, anonimousLogin } from '@/api/login';
 import {convertBase64ToImage } from '@/utils/base64ToImg'
 
 
@@ -78,6 +83,10 @@ let userId = ref(localStorage.getItem('useId'))
 let showLogin = ref(false)
 let canvasRef = ref<HTMLCanvasElement>()
 const cookieMap:Map<string,string> = getCookieMap(document.cookie)
+let isLogin = ref(false)
+if(localStorage.getItem('cookie')){
+  isLogin.value = true
+}
 const debounceFn = _.debounce(async ()=>{
       await cancelSearch()
       getSongs(inputValue.value.trim())
@@ -209,7 +218,10 @@ function goResult(keyword:string){
 }
 
 async function login(){
-
+  let cookieRes = await anonimousLogin()
+  localStorage.setItem('cookie', cookieRes)
+  let res = await getLoginStatus(cookieRes)
+  isLogin.value = true
 }
 async function showModal(){
   showLogin.value = true
@@ -303,10 +315,10 @@ async function showModal(){
       align-items: center;
       .login{
         font-size: 20px;
-      }
-      .login:hover{
-        color: rgb(255, 255, 255);
+        div:hover{
+          color: rgb(255, 255, 255);
         cursor: pointer;
+        }
       }
       .search-container{
         margin-top: 5px;
