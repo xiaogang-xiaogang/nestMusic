@@ -1,6 +1,6 @@
 // api/proxy.js
 // 该服务为 vercel serve跨域处理
-import { createProxyMiddleware} from 'http-proxy-middleware'
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = (req, res) => {
     let target = ''
