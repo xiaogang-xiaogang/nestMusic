@@ -2,7 +2,7 @@
 // 该服务为 vercel serve跨域处理
 import { createProxyMiddleware} from 'http-proxy-middleware'
 
-module.exports = (req, res) => {
+export (req, res) => {
     let target = ''
     // 代理目标地址
     // 这里使用 backend 主要用于区分 vercel serverless 的 api 路径
