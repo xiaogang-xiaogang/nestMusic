@@ -36,8 +36,18 @@
         </div>
       </div>
       <span class="login">
-        <div class="icon"></div>
-        <div>登陆</div>
+        <!-- <div v-if="userId && cookieMap.get('MUSIC_A')">游客1</div> -->
+
+          <div @click="showModal">登陆</div>
+          <Teleport to="body">
+            <transition v-if="showLogin">
+              <div class="login-modal">
+                请扫码登录
+                <div style="float: right; margin-right: 10px;font-size: 20px; cursor: pointer;" @click="showLogin=false">X</div>
+                <canvas ref="canvasRef" width="300" height="300"></canvas>
+              </div>
+            </transition>
+          </Teleport>
       </span>
     </div>
  </div>
@@ -53,6 +63,10 @@ import { search, cancelSearch } from '@/api/findMusic'
 import _ from 'lodash-es'
 import { useMusicPlayStore } from '@/store/playmusic';
 import { useRouter } from 'vue-router';
+import { getCookieMap } from '@/utils/cookie'
+import { getKey, getImg, checkStatus, getLoginStatus } from '@/api/login';
+import {convertBase64ToImage } from '@/utils/base64ToImg'
+
 
 let inputValue = ref('')
 let showResult = ref(false)
@@ -60,6 +74,10 @@ let songs = ref<Array<Song>>([])
 let albums = ref<Array<Al>>([])
 let aritists = ref<Array<Artist>>([])
 let playlists = ref<Array<PlayList>>([])
+let userId = ref(localStorage.getItem('useId')) 
+let showLogin = ref(false)
+let canvasRef = ref<HTMLCanvasElement>()
+const cookieMap:Map<string,string> = getCookieMap(document.cookie)
 const debounceFn = _.debounce(async ()=>{
       await cancelSearch()
       getSongs(inputValue.value.trim())
@@ -189,9 +207,64 @@ function goResult(keyword:string){
     }
   })
 }
+
+async function login(){
+
+}
+async function showModal(){
+  showLogin.value = true
+  let key = await getKey()
+  let base64 = await getImg(key)
+
+  if(canvasRef.value){
+    let ctx = canvasRef.value.getContext('2d')
+    var img = new Image();
+    img.src = base64;
+    img.onload = function() {
+      // 设置图片位置和大小
+      var x = 0;
+      var y = 0;
+      var width = canvasRef.value.width;
+      var height = canvasRef.value.height;
+
+      // 在canvas上绘制图片
+      ctx.drawImage(img, x, y, width, height);
+    };
+    let timer = setInterval(async () => {
+
+      const statusRes = await checkStatus(key)
+      if (statusRes.code === 800) {
+        alert('二维码已过期,请重新获取')
+        clearInterval(timer)
+      }
+
+      if (statusRes.code === 803) {
+        // 这一步会返回cookie
+        clearInterval(timer)
+        alert('授权登录成功')
+        await getLoginStatus(statusRes.cookie)
+        localStorage.setItem('cookie', statusRes.cookie)
+        showLogin.value = false
+      }
+    }, 3000)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
+.login-modal{
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    height: 400px;
+    width: 400px;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    z-index: 20;
+    canvas{
+      margin: 30px 55px;
+    }
+  }
 .header-container{
     background-color: #c62f2f;
     box-sizing: border-box;

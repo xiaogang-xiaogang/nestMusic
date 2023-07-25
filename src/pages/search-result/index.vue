@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <div class="title">{{ route.query.keyword }}
-        <span v-if="route.query.type=='1'">
+        <span v-if="route.query.type=='1'&& res">
             找到{{ res.songCount }}单曲
         </span>
-        <span v-if="route.query.type=='100'">
+        <span v-if="route.query.type=='100' && res">
             找到{{ res.artistCount }}歌手
         </span>
-        <span v-if="route.query.type=='10'">
+        <span v-if="route.query.type=='10' && res">
             找到{{ res.albumCount }}专辑
         </span>
-        <span v-if="route.query.type=='1000'">
+        <span v-if="route.query.type=='1000' && res">
             找到{{ res.playlistCount }}歌单
         </span>
     </div>
