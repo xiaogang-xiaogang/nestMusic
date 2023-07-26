@@ -43,8 +43,7 @@ export async function checkStatus(key:string) {
             }
         }
     )
-    console.log(res.message)
-    return res.code
+    return res
 }
 
 export async function getLoginStatus(cookie = '') {
@@ -54,5 +53,5 @@ export async function getLoginStatus(cookie = '') {
         cookie,
       },
     )
-    return res
+    return res.data
   }

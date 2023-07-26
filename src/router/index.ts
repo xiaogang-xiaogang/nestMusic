@@ -67,6 +67,16 @@ const routes:Array<RouteRecordRaw> = [
                 path:'/search',
                 name:'search',
                 component:()=>import('@/pages/search-result/index.vue')
+            },
+            {
+                path:'/likeMusic',
+                name:'likeMusic',
+                component:()=>import('@/pages/likeMusic/index.vue')
+            },
+            {
+                path:'/recentPlay',
+                name:'recentPlay',
+                component:()=>import('@/pages/recentListen/index.vue')
             }
         ]
     }

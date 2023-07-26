@@ -15,11 +15,11 @@
             <span>我的音乐</span>
         </div>
         <div class="content">
-            <div class="love-music">
+            <div @click="goLikeMusic" class="love-music">
                 <img src="../assets/img/aside/爱心.png" alt="">
                 我喜欢的音乐
             </div>
-            <div class="current-play">
+            <div @click="goRecentPlay" class="current-play">
                 <img src="../assets/img/aside/最近浏览.png" alt="">
                 最近在听
             </div>
@@ -49,6 +49,17 @@ function goFindmusic(){
     })
 }
 
+function goLikeMusic(){
+    router.push({
+        path:'/likeMusic'
+    })
+}
+
+function goRecentPlay(){
+    router.push({
+        path:'/recentPlay'
+    })
+}
 </script>
 
 <style lang="scss" scoped>

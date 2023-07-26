@@ -51,8 +51,9 @@
           </Teleport>
       </span>
       <span class="login" v-else>
-        <div>游客</div>
-        <div>退出</div>
+        <img style="width: 50px;border-radius: 50%;" :src="user?.avatarUrl" alt="">
+        <div style="height: 50px;text-align: center;line-height: 50px;">{{ user?.name }}</div>
+        <div @click="logout" style="height: 50px;text-align: center;line-height: 50px;">退出</div>
       </span>
     </div>
  </div>
@@ -63,14 +64,14 @@ import { Al } from '@/composale/al';
 import { Artist } from '@/composale/artist';
 import { PlayList } from '@/composale/playList';
 import { Song } from '@/composale/song';
-import { nextTick, ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { search, cancelSearch } from '@/api/findMusic'
 import _ from 'lodash-es'
 import { useMusicPlayStore } from '@/store/playmusic';
 import { useRouter } from 'vue-router';
 import { getCookieMap } from '@/utils/cookie'
 import { getKey, getImg, checkStatus, getLoginStatus, anonimousLogin } from '@/api/login';
-import {convertBase64ToImage } from '@/utils/base64ToImg'
+import { User } from '@/composale/user';
 
 
 let inputValue = ref('')
@@ -84,9 +85,14 @@ let showLogin = ref(false)
 let canvasRef = ref<HTMLCanvasElement>()
 const cookieMap:Map<string,string> = getCookieMap(document.cookie)
 let isLogin = ref(false)
+let user=ref<User>({} as User)
 if(localStorage.getItem('cookie')){
   isLogin.value = true
+  user.value.avatarUrl=localStorage.getItem('avatarUrl')
+  user.value.name=localStorage.getItem('nickname')
+  user.value.userId=localStorage.getItem('userId')
 }
+
 const debounceFn = _.debounce(async ()=>{
       await cancelSearch()
       getSongs(inputValue.value.trim())
@@ -245,21 +251,34 @@ async function showModal(){
     let timer = setInterval(async () => {
 
       const statusRes = await checkStatus(key)
-      if (statusRes.code === 800) {
-        alert('二维码已过期,请重新获取')
+      if (statusRes.code == 800) {
+        console.log('二维码已过期,请重新获取')
         clearInterval(timer)
       }
-
-      if (statusRes.code === 803) {
+      console.log(statusRes)
+      if (statusRes.code == 803) {
         // 这一步会返回cookie
         clearInterval(timer)
-        alert('授权登录成功')
-        await getLoginStatus(statusRes.cookie)
+        console.log('授权登录成功')
+        let res = await getLoginStatus(statusRes.cookie)
+        console.log(res)
         localStorage.setItem('cookie', statusRes.cookie)
         showLogin.value = false
+        user.value.avatarUrl=res.profile.avatarUrl
+        localStorage.setItem('avatarUrl', user.value.avatarUrl)
+        user.value.name=res.profile.nickname
+        localStorage.setItem('nickname', user.value.name)
+        user.value.userId=res.profile.userId
+        localStorage.setItem('useId', user.value.userId)
+        isLogin.value = true
       }
     }, 3000)
   }
+}
+
+function logout(){
+  isLogin.value=false
+  localStorage.clear()
 }
 </script>
 
@@ -315,9 +334,14 @@ async function showModal(){
       align-items: center;
       .login{
         font-size: 20px;
+        display: flex;
+        justify-content: center;
+        div{
+          margin: 0 5px;
+        }
         div:hover{
           color: rgb(255, 255, 255);
-        cursor: pointer;
+          cursor: pointer;
         }
       }
       .search-container{
