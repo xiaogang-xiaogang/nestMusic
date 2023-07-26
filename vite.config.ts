@@ -18,12 +18,19 @@ export default defineConfig({
     hmr:true,
     proxy:{
       '/api':{
-        target: 'https://autumnfish.cn/',
+        target: 'https://service-j3ii3bwi-1319660361.gz.apigw.tencentcs.com/',
         // 允许跨域
         changeOrigin: true,
         ws: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
+      // '/api1':{
+      //   target: 'https://service-j3ii3bwi-1319660361.gz.apigw.tencentcs.com/',
+      //   // 允许跨域
+      //   changeOrigin: true,
+      //   ws: true,
+      //   rewrite: (path) => path.replace(/^\/api1/, '')
+      // }
     }
   }
 })
